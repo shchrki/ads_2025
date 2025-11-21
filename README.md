@@ -18,6 +18,5 @@ Welcome to the repository for the **Algorithms and Data Structures (ADS)** cours
 | **Lab10** | Adjacency List & Matrix, Edge List, BFS                |
 | **Lab11** | DFS, Topological Sort                                  |
 | **Lab12** | Spanning Tree Algorithms (Kruskal, Prim)               |
-| **Lab13** | Dijkstra, Floyd, Ford-Bellman                          |
 
 ---
