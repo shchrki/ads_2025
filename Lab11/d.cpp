@@ -44,15 +44,6 @@ public:
 
         return true;
     }
-
-    int countComponents()
-    {
-        set<int> roots;
-        for (int i = 0; i < parent.size(); ++i)
-            roots.insert(find(i));
-            
-        return roots.size();
-    }
 };
 
 int main()
