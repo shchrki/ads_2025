@@ -1,6 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+void floyd(vector<vector<long long>> &dist, int k)
+{
+    int n = dist.size();
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            if (dist[i][k] + dist[k][j] < dist[i][j])
+                dist[i][j] = dist[i][k] + dist[k][j];
+}
+
+long long calculateDiameter(const vector<vector<long long>> &dist, const vector<bool> &active)
+{
+    int n = dist.size();
+    long long diameter = 0;
+
+    for (int i = 0; i < n; ++i)
+    {
+        if (!active[i])
+            continue;
+
+        for (int j = 0; j < n; ++j)
+        {
+            if (!active[j])
+                continue;
+
+            diameter = max(diameter, dist[i][j]);
+        }
+    }
+
+    return diameter;
+}
+
 int main()
 {
     ios::sync_with_stdio(false);
@@ -29,27 +60,8 @@ int main()
         int vertex = addOrder[step];
         active[vertex] = true;
 
-        for (int i = 0; i < n; ++i)
-            for (int j = 0; j < n; ++j)
-                if (dist[i][vertex] + dist[vertex][j] < dist[i][j])
-                    dist[i][j] = dist[i][vertex] + dist[vertex][j];
-
-        long long diameter = 0;
-        for (int i = 0; i < n; ++i)
-        {
-            if (!active[i])
-                continue;
-
-            for (int j = 0; j < n; ++j)
-            {
-                if (!active[j])
-                    continue;
-
-                diameter = max(diameter, dist[i][j]);
-            }
-        }
-
-        results[step] = diameter;
+        floyd(dist, vertex);
+        results[step] = calculateDiameter(dist, active);
     }
 
     for (int i = 0; i < n; ++i)
